@@ -63,7 +63,7 @@ app.get('/*', (req, res) => {
 });
 
 // Set Port
-const port = process.env.PORT || '1000';
+const port = process.env.PORT || '80';
 app.set('port', port);
 
 const server = http.createServer(app);
