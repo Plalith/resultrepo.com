@@ -58,12 +58,12 @@ app.use(function (req, res, next) {
 app.use('/api_connect', api.router);
 
 // Send all other requests to the Angular app
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'angular/index.html'));
 });
 
 // Set Port
-const port = process.env.PORT || '80';
+const port = process.env.PORT || '1000';
 app.set('port', port);
 
 const server = http.createServer(app);
