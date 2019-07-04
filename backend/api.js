@@ -371,6 +371,7 @@ router.post('/upload_result_data', (req, res) => {
             res.send({ msg: 'This Result Already Exist', status: false });
         }
     }, (e) => {
+		console.log(e);
         res.send({ msg: 'Server Bussy 2', status: false });
     }).catch((e) => {
         res.send({ msg: 'Server Bussy 3', status: false });
@@ -378,7 +379,7 @@ router.post('/upload_result_data', (req, res) => {
 });
 // list of all results
 router.get('/get_all_reults_list', (req, res) => {
-    result_data.find({ college: req.header('token_name') }).select('Description grade college').sort({ date: -1 }).then((reuslt) => {
+    result_data.find({ college: req.header('token_name') }).select('Description grade college').sort({ year: -1 }).then((reuslt) => {
         res.send({ status: true, data: reuslt });
     }).catch((e) => {
         res.send({ status: false, data: e, msg: 'Unable to get results data' });
@@ -397,7 +398,7 @@ router.post('/get_result_data', (req, res) => {
 // remove result
 router.post('/remove_result_data', (req, res) => {
     result_data.findOneAndDelete({ '_id': req.body.id }).then((main_result) => {
-        result_data.find().select('Description grade').sort({ date: -1 }).then((reuslt) => {
+        result_data.find().select('Description grade').sort({ year: -1 }).then((reuslt) => {
             res.send({ status: true, data: reuslt });
         })
     }, (e) => {
@@ -529,7 +530,7 @@ router.post('/get_student_result', (req, res) => {
 // list of result has only possible to analyse
 router.get('/get_all_reults_list_for_analysis', (req, res) => {
     console.log('hit');
-    result_data.find({ analysis: true, college: req.header('token_name') }).select('Description grade college').sort({ date: -1 }).then((reuslt) => {
+    result_data.find({ analysis: true, college: req.header('token_name') }).select('Description grade college').sort({ year: -1 }).then((reuslt) => {
         res.send({ status: true, data: reuslt });
     }, (e) => {
         res.send({ status: false, data: e, msg: 'Unable to get list' });
